@@ -1,0 +1,42 @@
+DECLARE
+    CURSOR GenerateMonthlyStatements IS
+        SELECT t.TransactionID, a.AccountID, c.CustomerID, c.Name, t.Amount
+        FROM Transactions t
+        JOIN Accounts a ON t.AccountID = a.AccountID
+        JOIN Customers c ON a.CustomerID = c.CustomerID
+        WHERE TRUNC(t.TransactionDate, 'MM') = TRUNC(SYSDATE, 'MM');
+BEGIN
+    FOR rec IN GenerateMonthlyStatements LOOP
+        DBMS_OUTPUT.PUT_LINE('Customer ' || rec.Name || ' has transaction ' || rec.TransactionID || ' amount ' || rec.Amount);
+    END LOOP;
+END;
+/
+
+DECLARE
+    CURSOR ApplyAnnualFee IS
+        SELECT AccountID
+        FROM Accounts;
+    v_fee NUMBER := 25;
+BEGIN
+    FOR rec IN ApplyAnnualFee LOOP
+        UPDATE Accounts
+        SET Balance = Balance - v_fee
+        WHERE AccountID = rec.AccountID;
+    END LOOP;
+    COMMIT;
+END;
+/
+
+DECLARE
+    CURSOR UpdateLoanInterestRates IS
+        SELECT LoanID
+        FROM Loans;
+BEGIN
+    FOR rec IN UpdateLoanInterestRates LOOP
+        UPDATE Loans
+        SET InterestRate = InterestRate + 0.5
+        WHERE LoanID = rec.LoanID;
+    END LOOP;
+    COMMIT;
+END;
+/

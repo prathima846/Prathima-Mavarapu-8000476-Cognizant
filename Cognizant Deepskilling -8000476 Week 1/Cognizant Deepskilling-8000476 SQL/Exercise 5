@@ -1,0 +1,36 @@
+CREATE OR REPLACE TRIGGER UpdateCustomerLastModified
+BEFORE UPDATE ON Customers
+FOR EACH ROW
+BEGIN
+    :NEW.LastModified := SYSDATE;
+END;
+/
+
+CREATE OR REPLACE TRIGGER LogTransaction
+AFTER INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+    INSERT INTO AuditLog (EventType, Message)
+    VALUES ('Transaction', 'New transaction inserted with ID ' || :NEW.TransactionID);
+END;
+/
+
+CREATE OR REPLACE TRIGGER CheckTransactionRules
+BEFORE INSERT ON Transactions
+FOR EACH ROW
+DECLARE
+    v_balance NUMBER;
+BEGIN
+    IF UPPER(:NEW.TransactionType) = 'WITHDRAWAL' THEN
+        SELECT Balance INTO v_balance
+        FROM Accounts
+        WHERE AccountID = :NEW.AccountID;
+
+        IF :NEW.Amount > v_balance THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Withdrawal amount is more than balance');
+        END IF;
+    ELSIF UPPER(:NEW.TransactionType) = 'DEPOSIT' AND :NEW.Amount <= 0 THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Deposit amount must be positive');
+    END IF;
+END;
+/

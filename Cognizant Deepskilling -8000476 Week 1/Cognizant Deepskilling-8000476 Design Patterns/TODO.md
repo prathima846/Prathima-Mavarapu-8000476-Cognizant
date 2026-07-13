@@ -1,0 +1,14 @@
+- [ ] Create SingletonPatternExample (Logger singleton + test)
+- [ ] Create FactoryMethodPatternExample (document types + factories + test)
+- [ ] Create BuilderPatternExample (Computer + nested Builder + test)
+- [ ] Create AdapterPatternExample (PaymentProcessor + gateways + adapters + test)
+- [ ] Create DecoratorPatternExample
+- [ ] Create ProxyPatternExample
+- [ ] Create ObserverPatternExample
+- [ ] Create StrategyPatternExample
+- [ ] Create CommandPatternExample
+- [ ] Create MVCPatternExample
+- [ ] Create DependencyInjectionExample
+- [ ] Compile all examples with javac
+- [ ] Run all test/main classes to demonstrate outputs
+
