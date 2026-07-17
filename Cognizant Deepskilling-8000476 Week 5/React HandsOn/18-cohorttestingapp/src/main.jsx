@@ -1,0 +1,1 @@
+import{createRoot}from'react-dom/client';import CohortDetails from'./CohortDetails';import{CohortData}from'./Cohort';createRoot(document.getElementById('root')).render(<CohortDetails cohort={CohortData[0]}/>);

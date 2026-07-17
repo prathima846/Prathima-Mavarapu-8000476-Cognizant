@@ -1,0 +1,1 @@
+export default function CalculateScore({name,school,total,goal}){return <section><h1>Student Score Calculator</h1><p>Name: {name}</p><p>School: {school}</p><p>Total: {total}</p><p>Goal: {goal}</p><strong>Average Score: {(total/goal*100).toFixed(2)}%</strong></section>}

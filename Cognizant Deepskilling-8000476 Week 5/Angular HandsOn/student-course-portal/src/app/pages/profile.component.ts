@@ -1,0 +1,1 @@
+import {Component} from '@angular/core';@Component({standalone:true,template:`<main><h1>Student Profile</h1><p>Name: Student</p><p>Programme: Full Stack Engineering</p></main>`})export class ProfileComponent{}

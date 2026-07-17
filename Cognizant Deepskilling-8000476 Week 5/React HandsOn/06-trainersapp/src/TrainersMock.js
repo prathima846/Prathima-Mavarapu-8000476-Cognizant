@@ -1,0 +1,1 @@
+export const trainers=[{id:1,name:'Anita',phone:'9000000001',email:'anita@example.com',technology:'React',skills:'JavaScript, JSX'},{id:2,name:'Ravi',phone:'9000000002',email:'ravi@example.com',technology:'Java',skills:'Spring Boot'}];
